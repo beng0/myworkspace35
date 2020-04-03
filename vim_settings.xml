@@ -1,0 +1,37 @@
+<application>
+  <component name="VimSettings">
+    <state version="4" enabled="false" />
+    <globalmarks />
+    <filemarks>
+      <file name="/Python Console" timestamp="1563351507215">
+        <mark key="[" line="0" column="0" />
+      </file>
+      <file name="/a.dummy" timestamp="1563351939496">
+        <mark key="[" line="0" column="0" />
+      </file>
+      <file name="E:/Iworkspace/pywork/test01/test02.py" timestamp="1563352219172" />
+      <file name="E:/Iworkspace/seleniumtest/test02/unit_.py" timestamp="1563351542228">
+        <mark key="[" line="5" column="0" />
+      </file>
+      <file name="E:/Iworkspace/pywork/test01/keyw.py" timestamp="1563352554338" />
+    </filemarks>
+    <jumps />
+    <registers />
+    <search>
+      <last-dir>0</last-dir>
+      <show-last>false</show-last>
+    </search>
+    <history />
+    <shortcut-conflicts>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed S</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="ide">
+        <text>ctrl pressed V</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed C</text>
+      </shortcut-conflict>
+    </shortcut-conflicts>
+  </component>
+</application>
