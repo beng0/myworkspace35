@@ -1,4 +1,5 @@
 #coding=utf-8
+__Author__ = "hejb"
 #包含一些基本操作函数
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -9,6 +10,7 @@ from pymouse import PyMouse
 import time
 import xlrd
 import xlwt
+from bs4 import BeautifulSoup
 
 k=PyKeyboard()
 m=PyMouse()
@@ -113,6 +115,41 @@ class Base_():
             return 1
         else:
             return -1
+
+    #使用js获取页面元素的文本内容，value是css选择器
+    def get_text(self,value):
+        txt=driver.execute_script('return document.querySelector(\''+value+'\').innerText')
+        return txt
+    #使用select寻找元素位置
+    def select_by_value(self,method,value,value1):
+        ele = self.get_position(method, value)
+        s = Select(ele)
+        s.select_by_value(value1)
+    # 使用index寻找元素位置
+    def select_by_index(self,method,value,index):
+        ele = self.get_position(method,value)
+        s = Select(ele)
+        s.select_by_index(index)
+
+
+
+
+class Doexcel():
+    def __init__(self):
+        pass
+
+    # 传入数组，每个数组写入到一列
+    def excel_w(self,file_position, sheet_name, *lis):
+        book = xlwt.Workbook()
+        sheet = book.add_sheet(sheet_name, cell_overwrite_ok=True)
+        len_c = len(lis)
+        for c in range(len_c):
+            li = lis[c]
+            len_r = len(li)
+            for r in range(len_r):
+                sheet.write(r + 1, c + 1, li[r])
+        book.save(file_position)
+        print("write excel success")
     #读取excel文件，返回一个嵌套列表;每行是一个列表
     def read_excel(self,filename,sheetname):
         file=xlrd.open_workbook(filename)
@@ -123,23 +160,17 @@ class Base_():
             list_ = sheet.row_values(i)
             lis.append(list_)
         return lis
-    #使用js获取页面元素的文本内容，value是css选择器
-    def get_text(self,value):
-        txt=driver.execute_script('return document.querySelector(\''+value+'\').innerText')
-        return txt
-    #使用select寻找元素位置
-    def select_by_value(self,method,value,value1):
-        ele = self.get_position(method, value)
-        s = Select(ele)
-        s.select_by_value(value1)
 
-class Doexcel():
+
+class Bsoup():
     def __init__(self):
         pass
-    def write_excel(self,):
-        book = xlwt.Workbook()
-        sheet = book.add_sheet("sheet1", cell_overwrite_ok=True)
-
+    # 通过css选择器获得soup文档
+    def get_soup(self,selector):
+        strjs = '''return document.querySelector('%s').outerHTML''' % (selector)
+        html = driver.execute_script(strjs)
+        soup = BeautifulSoup(html, "html.parser")
+        return soup
 
 
 
