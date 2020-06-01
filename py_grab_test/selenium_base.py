@@ -15,8 +15,12 @@ from bs4 import BeautifulSoup
 k=PyKeyboard()
 m=PyMouse()
 driver=webdriver.Chrome()
-
+# TODO(hejb):添加更多的selenium功能，如鼠标移动操作
+# TODO(hejb):优化输入功能,使用sendkeys输入
+# TODO(hejb):添加元素没有找到时的处理情况
+# TODO（hejb）:其他可以优化的地方，优化类的结构
 class Base_():
+
     def __init__(self):
 #         self.driver=webdriver.Chrome()
         pass
@@ -118,6 +122,7 @@ class Base_():
 
     #使用js获取页面元素的文本内容，value是css选择器
     def get_text(self,value):
+        WebDriverWait(driver, 10).until(lambda x: x.find_element("css selector", value))
         txt=driver.execute_script('return document.querySelector(\''+value+'\').innerText')
         return txt
     #使用select寻找元素位置
@@ -167,6 +172,7 @@ class Bsoup():
         pass
     # 通过css选择器获得soup文档
     def get_soup(self,selector):
+        WebDriverWait(driver,10).until(lambda  x:x.find_element("css selector",selector))
         strjs = '''return document.querySelector('%s').outerHTML''' % (selector)
         html = driver.execute_script(strjs)
         soup = BeautifulSoup(html, "html.parser")
