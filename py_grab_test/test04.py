@@ -61,14 +61,19 @@ print(f4(0,[2, 1, [3, [4, 5], 6], 7, [8]],11,12))
 # print(str_c)
 
 # 将嵌套数组转化为单个数组
-def list_flatten(l, a=None):
-    a = list(a) if isinstance(a, (list, tuple)) else []
-    for i in l:
-        if isinstance(i, (list, tuple)):
-            a = list_flatten(i, a)
-        else:
-            a.append(i)
-    return a
+# def list_flatten(l, a=None):
+#     a = list(a) if isinstance(a, (list, tuple)) else []
+#     for i in l:
+#         if isinstance(i, (list, tuple)):
+#             a = list_flatten(i, a)
+#         else:
+#             a.append(i)
+#     return a
+#
+# print(list_flatten([2, 1, [3, [4, 5], 6], 7, [8]]))
 
-print(list_flatten([2, 1, [3, [4, 5], 6], 7, [8]]))
+sheetname = "sheet1"
+list1 = [1,2,3]
+list2 = [sheetname,list1]
+print(list2)
 
