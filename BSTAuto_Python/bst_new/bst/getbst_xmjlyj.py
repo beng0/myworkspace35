@@ -1,7 +1,8 @@
-from bst_new.util.my_read_excel import *
-from bst_new.util.my_to_excel import *
+from BSTAuto_Python.bst_new.util.my_read_excel import *
+from BSTAuto_Python.bst_new.util.my_to_excel import *
 import psycopg2
 from datetime import datetime
+import os
 
 if  __name__=='__main__':
     myconp = ["biaost", "zl_reader", "zl_reader", "192.168.60.61", "5433", "public", "zl_test"]

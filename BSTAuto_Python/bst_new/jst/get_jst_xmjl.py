@@ -3,8 +3,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions  as  EC
 # from bst.bst_datatest.test_case.models.get_driver_moni_ip import get_driver_moni_ip
 from time import sleep
-from util.my_to_excel import *
-from util.my_read_excel import *
+from BSTAuto_Python.bst_new.util.my_to_excel import *
+from BSTAuto_Python.bst_new.util.my_read_excel import *
 from datetime import datetime
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import StaleElementReferenceException

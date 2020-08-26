@@ -34,6 +34,7 @@ def swipe_left(t):
 swipe_left(1000)
 swipe_left(1000)
 swipe_left(1000)
+swipe_left(1000)
 
 # 点击进入首页
 driver.find_element_by_id("com.zhulong.escort:id/tv_button").click()

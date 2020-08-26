@@ -1,5 +1,8 @@
-from util.my_read_excel import *
-from util.my_to_excel import *
+import sys
+
+sys.path.append(r'E:/myworkspace35/BSTAuto_Python/bst_new/util')
+from my_read_excel import *
+from my_to_excel import *
 import psycopg2
 from datetime import datetime
 

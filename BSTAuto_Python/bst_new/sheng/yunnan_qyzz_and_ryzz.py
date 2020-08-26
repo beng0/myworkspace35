@@ -13,8 +13,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from lmf.dbv2 import db_write
 import pandas as pd
-from util.my_read_excel import *
-from util.my_to_excel import *
+
+from BSTAuto_Python.bst_new.util.my_read_excel import *
+from BSTAuto_Python.bst_new.util.my_to_excel import *
 from datetime import datetime
 # from bst.bst_datatest.test_case.models.my_to_excel import  *
 
@@ -217,14 +218,14 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
 
 if __name__ == '__main__':
     root_dir = os.path.dirname(os.path.abspath('.')) + '/data'
-    infilename = root_dir + r"\qy_list\广东_云南_山西建设通企业业绩_贺家斌_href_20200805.xlsx"
+    infilename = root_dir + r"\qy_list\云南省企业列表_20200820.xlsx"
     outfilename_ryzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzz_贺家斌_"
     outfilename_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzz_贺家斌_"
 
     # 读取excel中的数据
     all_sheet_data1 = read_excel(infilename)
     # 得到第1个sheet中除了第一行(字段名字)的所有sheet数据
-    zhiding_qy_data = all_sheet_data1[0][1][6:11]
+    zhiding_qy_data = all_sheet_data1[0][1][1:6]
     print(zhiding_qy_data)
 
     # 得到指定页数企业对应的qyzz ryzz
