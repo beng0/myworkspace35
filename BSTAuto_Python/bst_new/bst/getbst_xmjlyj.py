@@ -1,14 +1,16 @@
-from BSTAuto_Python.bst_new.util.my_read_excel import *
-from BSTAuto_Python.bst_new.util.my_to_excel import *
+import sys
+import os
+sys.path.append(os.path.abspath('../util'))
+from my_read_excel import *
+from my_to_excel import *
 import psycopg2
 from datetime import datetime
-import os
 
 if  __name__=='__main__':
-    myconp = ["biaost", "zl_reader", "zl_reader", "192.168.60.61", "5433", "public", "zl_test"]
+    myconp = ["biaost", "zl_reader", "zl_reader", "10.30.16.52", "5432", "public", "app_ry_query"]
     root_dir = os.path.dirname(os.path.abspath('.'))
-    infilename = root_dir + r"\data\xmjl_list\广东_云南_山西_jst_xmjlyj_抽取的企业_每个企业6条_胡金花_2020-07-27_134842.xlsx"
-    outfilename = root_dir + r"\data\get_bst_xmjlyj\广东_云南_山西_bst_xmjlyj_获取结果_胡金花_"
+    infilename = root_dir + r"\data\xmjl_list\云南_项目经理列表_模板.xlsx"
+    outfilename = root_dir + r"\data\get_bst_xmjlyj\云南_bst_xmjlyj_获取结果_"
 
     # 读要查询的项目经理和相应企业进来
     all_sheet_data = read_excel(infilename)
@@ -24,14 +26,12 @@ if  __name__=='__main__':
         zhongbiaoren = row[0].strip()
         xmjl = row[1].strip()
 
-        xmjl_yj_sql="""select   unnest(ry_zhongbiao_info)::jsonb ->> 'href' href,
-                        xzqh,entname,name,
-                        unnest(ry_zhongbiao_info)::jsonb ->> 'gg_name'  gg_name,
-                        unnest(ry_zhongbiao_info)::jsonb ->> 'quyu'  quyu,
-                        SUBSTRING(unnest(ry_zhongbiao_info)::jsonb ->> 'fabu_time',0,11)    fabu_time,
-                        unnest(ry_zhongbiao_info)::jsonb ->> 'html_key' html_key 
-                        FROM  "{schema}".app_ry_query WHERE name='{xmjl}' and entname='{zhongbiaoren}'     
-                        ORDER BY   to_date(SUBSTRING(unnest(ry_zhongbiao_info)::jsonb ->> 'fabu_time',0,11),'yyyy-MM-dd')   desc ;""".format(schema=myconp[5],xmjl=xmjl,zhongbiaoren=zhongbiaoren)
+        xmjl_yj_sql="""SELECT unnest(ry_zhongbiao_info)::jsonb->>'href',entname,name,
+        unnest(ry_zhongbiao_info)::jsonb->>'gg_name',xzqh,unnest(ry_zhongbiao_info)::jsonb->>'fabu_time',person_key,
+        unnest(ry_zhongbiao_info)::jsonb->>'quyu' FROM "{schema}"."app_ry_query" 
+        where entname = '{zhongbiaoren}' and name = '{xmjl}' 
+        ORDER BY unnest(ry_zhongbiao_info)::jsonb->>'fabu_time' 
+        desc;""".format(schema=myconp[5],xmjl=xmjl,zhongbiaoren=zhongbiaoren)
         # print(xmjl_yj_sql)
         cur.execute(xmjl_yj_sql)
         result = cur.fetchall()
@@ -41,7 +41,7 @@ if  __name__=='__main__':
 
     tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
     # 到数据到excle中
-    columnRows = ["href",  "xzqh", "zhongbiaoren", "xmjl", "ggname", "quyu", "zbtime","html_key"]
+    columnRows = ["href",  "entname", "name", "ggname", "xzqh", "fabu_time", "person_key","quyu"]
     wirteDataToExcel(outfilename + tablenamehouzui + ".xlsx", "jst_qyyj_zhejiang", columnRows, data)
 
     if cur:

@@ -27,12 +27,12 @@ qyzz_data = []
 for qyzzlis in qyzz_datalist[0][1][1:]:
     ishave = ''
     qyname = qyzzlis[2]
-    print(qyname)
     zzcode = qyzzlis[7]
-    print(zzcode)
-    for bst_qyzz in bst_datalist[0][1]:
-        print(bst_qyzz[3],bst_qyzz[6])
-        if qyname == bst_qyzz[3] and zzcode == bst_qyzz[6]:
+    # print(qyname,zzcode)
+    # print(bst_datalist[0][1:])
+    for bst_qyzz in bst_datalist[0][1][1:]:
+        # print(bst_qyzz[3],bst_qyzz[6])
+        if bst_qyzz[3] == qyname and bst_qyzz[6] == str(zzcode):
             ishave = '有'
             break
         else:
@@ -42,7 +42,7 @@ for qyzzlis in qyzz_datalist[0][1][1:]:
     qyzz_data.append(tmp)
 
 tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
-columnRows = ["sheng","shi","href", "entname","zslb", "zzdj","zzcode","ishave"]
+columnRows = ["sheng","shi","entname", "zzdj","zslb", "date","date","zzcode","ishave"]
 outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzzwithzzcode_bstishave_贺家斌_"
 wirteDataToExcel(outfilename_gd_qyzz + tablenamehouzui + ".xlsx", "qyzz_data", columnRows, qyzz_data)
 print("qyzz_data to  excel  success")

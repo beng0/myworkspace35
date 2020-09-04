@@ -90,3 +90,7 @@ def  pdwriteToExcel():
     dt = pd.DataFrame(result_list, columns=columns)
     dt.to_excel("result_xlsx.xlsx", index=0)
     dt.to_csv("result_csv.csv", index=0)
+
+
+def test02():
+    print('success')

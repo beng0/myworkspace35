@@ -201,7 +201,7 @@ def get_ryxx_detail(driver,outfilename,zhiding_qy_yj_data,ryxx_data):
 
 if  __name__ == '__main__':
     root_dir = os.path.dirname(os.path.abspath('.')) + '/data'
-    infilename = root_dir + r"\qy_list\企业抽取_20200826.xlsx"
+    infilename = root_dir + r"\qy_list\企业抽取_模板.xlsx"
     outfilename = root_dir + r"\get_jst_qyyj\建设通企业业绩_数据准备_贺家斌_"
     url = "https://passport.cbi360.net/login?url=https%3A%2F%2Fwww.cbi360.net%2Fhyjd%2F20200528%2F203181.html"
 

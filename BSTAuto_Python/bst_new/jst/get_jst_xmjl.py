@@ -7,6 +7,7 @@ from BSTAuto_Python.bst_new.util.my_to_excel import *
 from BSTAuto_Python.bst_new.util.my_read_excel import *
 from datetime import datetime
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException
 
 def  open(url):
@@ -25,7 +26,7 @@ def  open(url):
 # 指定企业名和项目经理
 def get_jst_xmjlyj_zhiding_qyandxmjl(driver,sheet1data,datahref):
     # 选择项目经理
-    driver.find_element_by_xpath('//*[@id="ul_search_list_menu"]/li[4]/a').click()
+    driver.find_element_by_xpath('//div[@class="nav-box"]/div[4]/a').click()
     sleep(3)
 
     for row in sheet1data:
@@ -33,51 +34,58 @@ def get_jst_xmjlyj_zhiding_qyandxmjl(driver,sheet1data,datahref):
         xmjl = row[1].strip()
 
         # 输入项目经理名字
-        xmjl_loc = (By.XPATH, '//*[@id="txt_builder_name"]')
-        WebDriverWait(driver, 20).until(EC.visibility_of_element_located(xmjl_loc)).clear()
+        driver.execute_script("""document.querySelector('input[placeholder="请输入项目经理完整姓名"]').value=''""")
+        xmjl_loc = (By.XPATH, '//input[@placeholder="请输入项目经理完整姓名"]')
         WebDriverWait(driver, 20).until(EC.visibility_of_element_located(xmjl_loc)).send_keys(str(xmjl))
 
         # 输入企业名字
-        company_name_loc = (By.XPATH, '//*[@id="txt_company_name"]')
-        WebDriverWait(driver, 20).until(EC.visibility_of_element_located(company_name_loc)).clear()
-        WebDriverWait(driver, 20).until(EC.visibility_of_element_located(company_name_loc)).send_keys(str(zhongbiaoren))
+        driver.execute_script("""document.querySelector('input[placeholder="请输入企业名称关键词"]').value=''""")
+        sleep(1)
+        for i in range(20):
+            driver.find_element_by_xpath('//input[@placeholder="请输入企业名称关键词"]').send_keys(Keys.BACK_SPACE)
+        driver.find_element_by_xpath('//input[@placeholder="请输入企业名称关键词"]').send_keys(zhongbiaoren)
 
         # 点击搜索按钮
-        driver.find_element_by_xpath('//*[@id="btn_search"]').click()
-        sleep(3)
+        driver.find_element_by_xpath('//span[text()="查询"]').click()
 
-        href = driver.find_element_by_xpath('/html/body/div[8]/div[2]/div[2]/ul/li/div[2]/div[1]/h2/strong/a').get_attribute('href').strip()
-        tmp = [zhongbiaoren, xmjl, href]
-        datahref.append(tmp)
+        sleep(3)
+        hreflis = driver.find_elements_by_xpath('//strong[@class="personnel-name"]/a')
+        for hrefli in hreflis:
+            href = hrefli.get_attribute('href').strip()
+            tmp = [zhongbiaoren, xmjl, href]
+            datahref.append(tmp)
         print(datahref)
 
 # 指定企业名
 def get_jst_xmjlyj_zhiding_qy(driver,sheet1data,datahref):
     # 选择项目经理
-    driver.find_element_by_xpath('//*[@id="ul_search_list_menu"]/li[4]/a').click()
+    driver.find_element_by_xpath('//div[@class="nav-box"]/div[4]/a').click()
     sleep(3)
 
     for row in sheet1data:
-        zhongbiaoren = row[0].strip()
+        zhongbiaoren = row[1].strip()
 
         # 输入企业名字
-        company_name_loc = (By.XPATH, '//*[@id="txt_company_name"]')
-        WebDriverWait(driver, 20).until(EC.visibility_of_element_located(company_name_loc)).clear()
-        WebDriverWait(driver, 20).until(EC.visibility_of_element_located(company_name_loc)).send_keys(str(zhongbiaoren))
+        driver.execute_script("""document.querySelector('input[placeholder="请输入企业名称关键词"]').value=''""")
+        sleep(1)
+        for i in range(20):
+            driver.find_element_by_xpath('//input[@placeholder="请输入企业名称关键词"]').send_keys(Keys.BACK_SPACE)
+        driver.find_element_by_xpath('//input[@placeholder="请输入企业名称关键词"]').send_keys(zhongbiaoren)
 
         # 点击搜索按钮
-        driver.find_element_by_xpath('//*[@id="btn_search"]').click()
+        driver.find_element_by_xpath('//span[text()="查询"]').click()
+
         sleep(3)
 
         # 该企业总共有多少个xmjl
-        total_xmjl_count = driver.find_element_by_xpath('/html/body/div[8]/div[2]/div[1]/div/em').text.strip()
+        total_xmjl_count = driver.find_element_by_xpath('//div[@class="table-top clear"]/div/em').text.strip()
         xmjl_count = int(total_xmjl_count)
-        if xmjl_count > 5 : xmjl_count = 5
+        if xmjl_count > 20 : xmjl_count = 20
 
-        content_list = driver.find_elements_by_xpath('/html/body/div[8]/div[2]/div[2]/ul/li')
+        content_list = driver.find_elements_by_xpath('//div[@id="res-table"]/div[2]/div')
         for content in content_list:
-            xmjl = content.find_element_by_xpath('./div[2]/div[1]/h2/strong/a').text.strip()
-            href = content.find_element_by_xpath('./div[2]/div[1]/h2/strong/a').get_attribute('href')
+            xmjl = content.find_element_by_xpath('./ul/li[2]//strong/a').text.strip()
+            href = content.find_element_by_xpath('./ul/li[2]//strong/a').get_attribute('href')
             tmp = [zhongbiaoren, xmjl, href]
             datahref.append(tmp)
             print(datahref)
@@ -89,7 +97,7 @@ def get_xmjl_detail(driver,datahref,datalist):
         driver.get(href)
         sleep(3)
 
-        zbsl_loc = (By.XPATH, '//*[@id="newriskWrap"]/div[2]/ul/li[1]/div[2]/i')
+        zbsl_loc = (By.XPATH, '//div[@class="table"]/dl[1]/dd[2]/i')
         zbsl2 = WebDriverWait(driver, 30).until(EC.visibility_of_element_located(zbsl_loc)).text.strip()
         print(href)
 
@@ -106,13 +114,13 @@ def get_xmjl_detail(driver,datahref,datalist):
         for gotoyema in range(1, total_ye + 1):
             if total_ye > 1:
                 # 获得当前页码
-                cur_yema = driver.find_element_by_xpath('//*[@id="newriskWrap"]/div[2]/div/div/div/label').text.strip()
+                cur_yema = driver.find_element_by_xpath('//div[@class="pagination-wrap"]/ul/li[@class="active"]/a').text.strip()
                 # 翻页
                 if int(cur_yema) != int(gotoyema):
                     try:
-                        driver.find_element_by_xpath('//*[@id="newriskWrap"]/div[2]/div/div/div/input[1]').clear()
-                        driver.find_element_by_xpath('//*[@id="newriskWrap"]/div[2]/div/div/div/input[1]').send_keys(str(gotoyema))
-                        driver.find_element_by_xpath('//*[@id="newriskWrap"]/div[2]/div/div/div/input[2]').clear()
+                        driver.find_element_by_xpath('//input[@class="jumpnum"]').clear()
+                        driver.find_element_by_xpath('//input[@class="jumpnum"]').send_keys(str(gotoyema))
+                        driver.find_element_by_xpath('//li/a[text()="转到"]').click()
                     except BaseException as msg:
                         print(msg)
                     sleep(3)
@@ -121,21 +129,21 @@ def get_xmjl_detail(driver,datahref,datalist):
             zbtime = " "
             zbly =  " "
             zbly_href = " "
-            content_list = driver.find_elements_by_xpath('//*[@id="newriskWrap"]/div[2]/ul/li')[1:]
+            content_list = driver.find_elements_by_xpath('//div[@class="table"]/dl')[1:]
             for content in content_list:
-                ggname = content.find_element_by_xpath('./div[2]/h2/a').text.strip()
+                ggname = content.find_element_by_xpath('./dd/h2/a').text.strip()
 
-                if content.find_element_by_xpath('./div[4]'):
-                    zbdq = content.find_element_by_xpath('./div[4]').text.strip()
+                if content.find_element_by_xpath('./dd[4]'):
+                    zbdq = content.find_element_by_xpath('./dd[4]').text.strip()
 
-                if content.find_element_by_xpath('./div[5]'):
-                    zbtime = content.find_element_by_xpath('./div[5]').text.strip()
+                if content.find_element_by_xpath('./dd[5]'):
+                    zbtime = content.find_element_by_xpath('./dd[5]').text.strip()
 
-                if content.find_element_by_xpath('./div[6]/a'):
-                    zbly = content.find_element_by_xpath('./div[6]/a').text.strip()
+                if content.find_element_by_xpath('./dd[6]/a'):
+                    zbly = content.find_element_by_xpath('./dd[6]/a').text.strip()
 
-                if content.find_element_by_xpath('./div[6]/a'):
-                    zbly_href = content.find_element_by_xpath('./div[6]/a').get_attribute('href').strip()
+                if content.find_element_by_xpath('./dd[6]/a'):
+                    zbly_href = content.find_element_by_xpath('./dd[6]/a').get_attribute('href').strip()
 
                 tmp = [href, zhongbiaoren,xmjl, ggname, zbdq,zbtime, zbsl_count, zbly, zbly_href]
                 datalist.append(tmp)
@@ -144,8 +152,8 @@ def get_xmjl_detail(driver,datahref,datalist):
 
 if  __name__ == '__main__':
     root_dir = os.path.dirname(os.path.abspath('.'))
-    infilename = root_dir + r"\data\xmjl_list\广东_云南_山西_jst_xmjlyj_贺家斌_20200807.xlsx"
-    outfilename = root_dir +r"\data\xmjl_list\广东_云南_山西_jst_xmjlyj_获取结果_贺家斌_"
+    infilename = root_dir + r"\data\qy_list\企业抽取_模板.xlsx"
+    outfilename = root_dir +r"\data\get_jst_xmjlyj\云南__jst_xmjlyj_获取结果_贺家斌_"
     url = "https://passport.cbi360.net/login?url=https%3A%2F%2Fwww.cbi360.net%2Fhyjd%2F20200528%2F203181.html"
     driver = open(url)
 
