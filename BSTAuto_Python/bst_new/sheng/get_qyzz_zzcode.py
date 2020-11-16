@@ -4,7 +4,7 @@ import psycopg2
 from datetime import datetime
 
 root_dir = os.path.dirname(os.path.abspath('.')) + '\\data'
-infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzz_贺家斌_20200820_194042.xlsx"
+infilename1 = root_dir + r"\get_jst_qyyj\建设通企业资质_贺家斌_20201111_193041.xlsx"
 qyzz_datalist = read_excel(infilename1)
 print(qyzz_datalist)
 print(qyzz_datalist[0][1])
@@ -33,6 +33,6 @@ for i in range(1,len(qyzz_datalist[0][1])):
 
 tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
 columnRows = ["sheng","shi","entname","zzdj", "zslb","data","date","zzcode"]
-outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzzwithzzcode_贺家斌_"
+outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_建设通qyzzwithzzcode_贺家斌_"
 wirteDataToExcel(outfilename_gd_qyzz + tablenamehouzui + ".xlsx", "qyzz_data", columnRows, qyzz_data)
 print("qyzz_data to  excel  success")

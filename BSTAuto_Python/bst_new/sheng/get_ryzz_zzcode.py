@@ -4,7 +4,7 @@ import psycopg2
 from datetime import datetime
 
 root_dir = os.path.dirname(os.path.abspath('.')) + '\\data'
-infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzz_贺家斌_20200820_194042.xlsx"
+infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzz_贺家斌_20201109_183731.xlsx"
 ryzz_datalist = read_excel(infilename1)
 print(ryzz_datalist)
 print(ryzz_datalist[0][1])

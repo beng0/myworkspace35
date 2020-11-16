@@ -164,9 +164,9 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
     WebDriverWait(driver,30).until(EC.visibility_of_element_located(zbr_loc))
 
     for row in zhiding_qy_data:
-        sheng = row[0].strip()
-        shi = row[1].strip()
-        zbr = row[2].strip()
+        sheng = "11"
+        shi = "11"
+        zbr = row[1].strip()
 
         # 输入就企业名
         driver.find_element_by_xpath('//*[@id="entName"]').clear()
@@ -177,8 +177,13 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
         sleep(3)
 
         # 跳到qyzz详情页面
-        onclick_str=driver.find_element_by_xpath('//*[@id="table"]/tr').get_attribute('onclick')
-        driver.execute_script(onclick_str)
+        try:
+            onclick_str=driver.find_element_by_xpath('//*[@id="table"]/tr').get_attribute('onclick')
+        except:
+            print("没有这个企业："+zbr)
+            continue
+        else:
+            driver.execute_script(onclick_str)
         sleep(3)
 
         #切换窗口
@@ -218,14 +223,14 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
 
 if __name__ == '__main__':
     root_dir = os.path.dirname(os.path.abspath('.')) + '/data'
-    infilename = root_dir + r"\qy_list\云南省企业列表_20200820.xlsx"
+    infilename = root_dir + r"\qy_list\企业抽取_模板.xlsx"
     outfilename_ryzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzz_贺家斌_"
     outfilename_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzz_贺家斌_"
 
     # 读取excel中的数据
     all_sheet_data1 = read_excel(infilename)
     # 得到第1个sheet中除了第一行(字段名字)的所有sheet数据
-    zhiding_qy_data = all_sheet_data1[0][1][1:6]
+    zhiding_qy_data = all_sheet_data1[0][1][1:]
     print(zhiding_qy_data)
 
     # 得到指定页数企业对应的qyzz ryzz

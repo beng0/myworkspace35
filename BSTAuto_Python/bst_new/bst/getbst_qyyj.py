@@ -1,5 +1,12 @@
-from BSTAuto_Python.bst_new.util.my_read_excel import *
-from BSTAuto_Python.bst_new.util.my_to_excel import *
+import sys
+import os
+sys.path.append(os.path.abspath('../util'))
+print(sys.path)
+print(os.path.abspath('../util'))
+
+
+from my_read_excel import *
+from my_to_excel import *
 import psycopg2
 from datetime import datetime
 
@@ -39,7 +46,6 @@ if  __name__=='__main__':
 
     if cur:cur.close()
     if conn:conn.close()
-
 
 
 

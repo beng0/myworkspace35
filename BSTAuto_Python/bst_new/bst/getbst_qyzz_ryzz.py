@@ -9,7 +9,7 @@ from datetime import datetime
 if __name__ == '__main__':
     myconp = ["biaost", "zl_reader", "zl_reader", "10.30.16.52", "5432", "public", "zl_test"]
     root_dir = os.path.dirname(os.path.abspath('.')) + '/data'
-    infilename = root_dir + r"\qy_list\云南省企业列表_20200820.xlsx"
+    infilename = root_dir + r"\qy_list\企业抽取_模板.xlsx"
     outfilename = root_dir + r"\get_bst_qyyj\云南bst企业资质_贺家斌_"
     outfilename2 = root_dir + r"\get_bst_qyyj\云南bst人员资质_贺家斌_"
 
