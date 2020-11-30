@@ -4,7 +4,7 @@ import psycopg2
 from datetime import datetime
 
 root_dir = os.path.dirname(os.path.abspath('.')) + '\\data'
-infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzz_贺家斌_20201109_183731.xlsx"
+infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南省xmjlzz_数据准备_贺家斌_20201117_193859.xlsx"
 ryzz_datalist = read_excel(infilename1)
 print(ryzz_datalist)
 print(ryzz_datalist[0][1])
@@ -21,7 +21,7 @@ ryzz_data = []
 
 for ryzzlis in ryzz_datalist[0][1][1:]:
     ryzzmc = ryzzlis[5]
-    ryzzzy = ryzzlis[7]
+    ryzzzy = ryzzlis[6]
     if ryzzmc == "三类人员":
         if "建安A" in ryzzlis[5]:
             ryzzmc = "建安A证"
@@ -42,6 +42,6 @@ for ryzzlis in ryzz_datalist[0][1][1:]:
 
 tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
 columnRows = ["sheng","shi","entname","name", "sfz","zzdj","zczsh","zhuanye","ryzzcode"]
-outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzzwithzzcode_贺家斌_"
+outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台xmjlzzwithzzcode_贺家斌_"
 wirteDataToExcel(outfilename_gd_qyzz + tablenamehouzui + ".xlsx", "qyzz_data", columnRows, ryzz_data)
 print("qyzz_data to  excel  success")

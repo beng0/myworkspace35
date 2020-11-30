@@ -13,8 +13,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from lmf.dbv2 import db_write
 import pandas as pd
-from util.my_read_excel import *
-from util.my_to_excel import *
+from my_read_excel import *
+from my_to_excel import *
 from datetime import datetime
 # from bst.bst_datatest.test_case.models.my_to_excel import  *
 

@@ -10,7 +10,7 @@ from datetime import datetime
 
 root_dir = os.path.dirname(os.path.abspath('.')) + '\\bst_new\\data'
 # 省平台人员资质
-infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzzwithzzcode_贺家斌_20201109_184249.xlsx"
+infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台xmjlzzwithzzcode_贺家斌_20201117_195300.xlsx"
 sheng_datalist = read_excel(infilename1)
 print(sheng_datalist)
 print(sheng_datalist[0][1])
@@ -20,7 +20,7 @@ print(sheng_datalist[0][1][1][3])
 print(sheng_datalist[0][1][1][8])
 
 # 标事通人员资质
-infilename2 = root_dir + r"\get_bst_ryzz_qyzz\云南bst人员资质_贺家斌_20201111_114644.xlsx"
+infilename2 = root_dir + r"\get_bst_ryzz_qyzz\标事通xmjlzz_数据准备_贺家斌_20201117_170420.xlsx"
 bst_datalist = read_excel(infilename2)
 print(bst_datalist)
 print(bst_datalist[0][1][1])
@@ -29,11 +29,11 @@ print(bst_datalist[0][1][1][3])
 print(bst_datalist[0][1][1][8])
 
 # 建设通人员资质
-infilename3 = root_dir + r"\get_jst_ryzz_qyzz\云南_建设通ryzzwithzzcode_贺家斌_20201112_140856.xlsx"
+infilename3 = root_dir + r"\get_jst_ryzz_qyzz\云南_建设通xmjl_ryzzwithzzcode_贺家斌_20201117_101035.xlsx"
 jst_datalist = read_excel(infilename3)
 
 # 合并人员资质
-infilename4 = root_dir + r"\hebin\合并ryzz_sheng_jst_bst.xlsx"
+infilename4 = root_dir + r"\hebin\合并xmjlzz_sheng_jst_bst.xlsx"
 hb_datalist = read_excel(infilename4)
 
 
@@ -91,7 +91,7 @@ columnRows = ["sheng","shi","entname", "name","sfz", "zzmc",
               "zzdj","zhuanye","ryzzcode","source","bstishave","jstishave","shengishave"]
 # outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzzwithzzcode_bstishave_贺家斌_"
 # outfilename2 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台ryzzwithzzcode_shengishave_贺家斌_"
-outfilename_hebin_ryzz = root_dir + r"\hebin\云南_合并和ryzz各平台是否有_贺家斌_"
+outfilename_hebin_ryzz = root_dir + r"\hebin\云南_合并后ryzz各平台是否有_贺家斌_"
 wirteDataToExcel(outfilename_hebin_ryzz + tablenamehouzui + ".xlsx", "ryzz_data", columnRows, ryzz_data)
 # wirteDataToExcel(outfilename2 + tablenamehouzui + ".xlsx", "qyzz_data", columnRows, ryzz1_data)
 print("qyzz_data to  excel  success")
