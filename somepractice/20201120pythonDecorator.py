@@ -54,7 +54,7 @@ def repeat(number=3):
 @repeat(2)
 def foo():
     print("foo")
-# foo()
+foo()
 repeat()
 
 # 4.保持内省的装饰器
