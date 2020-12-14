@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c5406490-c9a4-41a0-80fe-beade8c3b9e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/somepractice/202012101property.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/202012102property.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/202012103slots.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/202012104metaprogramming.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/20201210seniorProperty1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/202012111new.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/202012141metaclass.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/somepractice/20201214metaclass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSTAuto_Python/bst_new/data/qy_list/企业抽取_20201125.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/somepractice/20201208seniorProperty.py" beforeDir="false" afterPath="$PROJECT_DIR$/somepractice/20201208seniorProperty.py" afterDir="false" />
-    </list>
+    <list default="true" id="c5406490-c9a4-41a0-80fe-beade8c3b9e4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/somepractice/202012141metaclass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="396">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -306,6 +294,14 @@
       <option name="presentableId" value="Default" />
       <updated>1589159562319</updated>
     </task>
+    <task id="LOCAL-00001" summary="20201214">
+      <created>1607932988504</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607932988504</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -317,22 +313,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="507" y="6" width="1411" height="1016" extended-state="0" />
+    <frame x="426" y="9" width="1490" height="1016" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3136669" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2961918" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49589247" visible="true" weight="0.22415796" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4957687" visible="true" weight="0.22415796" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3495935" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989634" weight="0.32741398" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32852387" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.18534961" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50410753" side_tool="true" weight="0.22415796" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50423133" side_tool="true" weight="0.22415796" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32852387" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -361,6 +357,10 @@
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="right" id="R Packages" order="4" />
     </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="20201214" />
+    <option name="LAST_COMMIT_MESSAGE" value="20201214" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -776,8 +776,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/somepractice/202012141metaclass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="396">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
