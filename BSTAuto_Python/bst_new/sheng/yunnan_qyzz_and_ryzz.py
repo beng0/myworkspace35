@@ -44,35 +44,35 @@ def close_current_window(driver,first_handle):
 
 
 # 企业资质详情
-def get_qyzz_detail(sheng,shi,zbr,qyzz_data):
+def get_qyzz_detail(zbr,qyzz_data):
     content_list = driver.find_elements_by_xpath('//*[@id="qyzz_table"]/tr')
     for content in content_list:
         qyzz = content.find_element_by_xpath('./td[4]/div').text.strip()
-        fzjg = content.find_element_by_xpath('./td[5]/div').text.strip()
-        fzrq = content.find_element_by_xpath('./td[6]/div').text.strip()
+        # fzjg = content.find_element_by_xpath('./td[5]/div').text.strip()
+        # fzrq = content.find_element_by_xpath('./td[6]/div').text.strip()
         yxq = content.find_element_by_xpath('./td[7]/div').text.strip()
-        tmp = [sheng,shi,zbr, qyzz, fzjg, fzrq, yxq]
+        tmp = [zbr, qyzz, yxq]
         qyzz_data.append(tmp)
         print(qyzz_data)
 
 
 # 人员资质详情
-def get_ryzz_detail(sheng,shi,zbr,ryzz_data):
+def get_ryzz_detail(zbr,ryzz_data):
     content_list = driver.find_elements_by_xpath('//*[@id="zcry_table"]/tr')
     for content in content_list:
         name = content.find_element_by_xpath('./td[2]/div').text.strip()
         sfz = content.find_element_by_xpath('./td[3]/div').text.strip()
-        zclb_jb = content.find_element_by_xpath('./td[4]/div').text.strip()
+        zclb = content.find_element_by_xpath('./td[4]/div').text.strip()
         zczsh = content.find_element_by_xpath('./td[5]/div').text.strip()
         zczys = content.find_element_by_xpath('./td[6]/div').text.strip()
         if "," in zczys:
             zczylis = zczys.split(",")
             for zczy in zczylis:
-                tmp = [sheng, shi, zbr, name, sfz, zclb_jb, zczsh, zczy]
+                tmp = [zbr, name, sfz, zczsh, zclb,  zczy]
                 ryzz_data.append(tmp)
         else:
             zczy = zczys
-            tmp = [sheng, shi, zbr, name, sfz, zclb_jb, zczsh, zczy]
+            tmp = [zbr, name, sfz, zczsh, zclb,  zczy]
             ryzz_data.append(tmp)
 
         print(ryzz_data)
@@ -81,7 +81,7 @@ def get_ryzz_detail(sheng,shi,zbr,ryzz_data):
 
 
 # 得到该企业qyzz
-def get_qyzz(driver,sheng,shi,zbr,qyzz_data):
+def get_qyzz(driver,zbr,qyzz_data):
 
     table_text = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[2]/div/div/div[2]/div[2]').text
     if "暂无相关数据" in table_text:
@@ -99,7 +99,7 @@ def get_qyzz(driver,sheng,shi,zbr,qyzz_data):
     print("该企业总共有 " + str(total_ye_count) + " 页企业资质")
 
     if total_ye_count == 1:
-        get_qyzz_detail(sheng,shi,zbr,qyzz_data)
+        get_qyzz_detail(zbr,qyzz_data)
     elif total_ye_count > 1:
         for crrut_ye in range(1, total_ye_count + 1):
             # 翻页
@@ -111,11 +111,11 @@ def get_qyzz(driver,sheng,shi,zbr,qyzz_data):
 
             loc = (By.XPATH, '//*[@id="qyzz_table"]/tr[1]/td[5]/div')
             WebDriverWait(driver, 10).until(EC.visibility_of_element_located(loc))
-            get_qyzz_detail(sheng,shi,zbr,qyzz_data)
+            get_qyzz_detail(zbr,qyzz_data)
 
 
 # 得到该企业ryzz
-def get_ryzz(driver,sheng,shi,zbr, ryzz_data,is_havedata):
+def get_ryzz(driver,zbr, ryzz_data):
     # 点击注册人员标签
     driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li[2]/span').click()
     sleep(5)
@@ -139,7 +139,7 @@ def get_ryzz(driver,sheng,shi,zbr, ryzz_data,is_havedata):
 
 
     if total_ye_count == 1:
-        get_ryzz_detail(sheng,shi,zbr, ryzz_data)
+        get_ryzz_detail(zbr, ryzz_data)
     elif total_ye_count > 1:
         for crrut_ye in range(1, total_ye_count + 1):
             # 翻页
@@ -151,7 +151,7 @@ def get_ryzz(driver,sheng,shi,zbr, ryzz_data,is_havedata):
 
             loc = (By.XPATH, '//*[@id="zcry_table"]/tr[1]/td[2]/div')
             WebDriverWait(driver, 10).until(EC.visibility_of_element_located(loc))
-            get_ryzz_detail(sheng,shi,zbr, ryzz_data)
+            get_ryzz_detail(zbr, ryzz_data)
 
 
 
@@ -164,8 +164,6 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
     WebDriverWait(driver,30).until(EC.visibility_of_element_located(zbr_loc))
 
     for row in zhiding_qy_data:
-        sheng = "11"
-        shi = "11"
         zbr = row[1].strip()
 
         # 输入就企业名
@@ -194,11 +192,11 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
         WebDriverWait(driver, 3).until(EC.visibility_of_element_located(table_loc))
 
         # 得到该企业qyzz
-        get_qyzz(driver,sheng,shi, zbr, qyzz_data)
+        get_qyzz(driver, zbr, qyzz_data)
 
         # 得到该企业ryzz
         is_havedata= 0
-        get_ryzz(driver,sheng,shi, zbr, ryzz_data,is_havedata)
+        get_ryzz(driver, zbr, ryzz_data)
         if is_havedata :
             close_current_window(driver,first_handle)
             continue
@@ -207,13 +205,13 @@ def get_zhiding_qy_qyzz_and_ryzz(driver,zhiding_qy_data,qyzz_data,outfilename_qy
 
     # 保存qyzz
     tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
-    columnRows = ["sheng","shi","zbr", "qyzz", "fzjg", "fzrq","yxq"]
+    columnRows = ["zbr", "qyzz", "youxiao_date"]
     wirteDataToExcel(outfilename_qyzz + tablenamehouzui + ".xlsx", "Sheet1", columnRows, qyzz_data)
     print("qyzz  to  excel  success")
 
     # 保存ryzz
     tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
-    columnRows1 = ["sheng","shi","zbr", "name", "sfz", "zclb_jb","zczsh", "zczy"]
+    columnRows1 = ["zbr", "name", "sfzh", "zcbh", "zzmc", "zhuanye"]
     wirteDataToExcel(outfilename_ryzz + tablenamehouzui + ".xlsx", "Sheet1", columnRows1, ryzz_data)
     print("ryzz to  excel  success")
 

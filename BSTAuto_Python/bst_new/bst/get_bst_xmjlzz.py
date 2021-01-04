@@ -10,10 +10,10 @@ import psycopg2
 from datetime import datetime
 
 if  __name__=='__main__':
-    myconp = ["base_db", "zl_reader", "zl_reader", "10.30.16.31", "5432", "app", "app_ry_query"]
+    myconp = ["base_db", "zl_reader", "zl_reader", "10.0.64.25", "54325", "app", "qy_zcry"]
     root_dir = os.path.dirname(os.path.abspath('.')) + '/data'
     infilename = root_dir + r"\xmjl_list\云南_项目经理列表_模板.xlsx"
-    outfilename = root_dir + r"\get_bst_qyyj\标事通xmjlzz_数据准备_贺家斌_"
+    outfilename = root_dir + r"\get_bst_ryzz_qyzz\标事通xmjlzz_数据准备_贺家斌_"
 
     # 读要查询的项目经理和相应企业进来
     all_sheet_data = read_excel(infilename)
@@ -29,10 +29,9 @@ if  __name__=='__main__':
         entname = row[2].strip()
         name = row[1].strip()
 
-        qy_yj_sql="""SELECT entname,name,unnest(ryzz_info)->>'zsbh',
-        unnest(ryzz_info)->>'zclb',unnest(ryzz_info)->>'zhuanye',unnest(ryzz_info)->>'youxiao_date',
-        unnest(ryzz_info)->>'ryzz_code' FROM "app_ry_query" where 
-        entname = '{entname}' and name = '{name}';""".format(schema=myconp[5],entname=entname,name=name)
+        qy_yj_sql="""SELECT entname,name,zjhm,zsbh,zclb,zhuanye,ryzz_code 
+        FROM "{schema}"."{table}" where entname='{entname}' and name = '{name}'
+        """.format(schema=myconp[5],table=myconp[6],entname=entname,name=name)
         print(qy_yj_sql)
         cur.execute(qy_yj_sql)
         result = cur.fetchall()
@@ -42,7 +41,7 @@ if  __name__=='__main__':
 
     tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
     # 到数据到excle中
-    columnRows = ["entname","name",  "zsbh", "zclb", "zhuanye", "youxiao_date", "ryzz_code"]
+    columnRows = ["entname","name", "zjhm",  "zsbh", "zclb", "zhuanye",  "ryzz_code"]
     wirteDataToExcel(outfilename + tablenamehouzui + ".xlsx", "jst_qyyj_zhejiang", columnRows, data)
 
     if cur:cur.close()

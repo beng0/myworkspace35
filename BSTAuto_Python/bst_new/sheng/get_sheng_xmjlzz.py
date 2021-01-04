@@ -62,7 +62,7 @@ def get_qyzz_detail(driver,href_data):
             zsbh = tr.find_element_by_xpath('./td[2]/div').text.strip()
             zhuanye = tr.find_element_by_xpath('./td[3]/div').text.strip()
             youxiao_date = tr.find_element_by_xpath('./td[5]/div').text.strip()
-            tmp1 = [entname,name,zsbh,zclb,zhuanye,zjhm,youxiao_date]
+            tmp1 = [entname, name, zjhm, zsbh, zclb, zhuanye, youxiao_date]
             ryzz_data.append(tmp1)
     return ryzz_data
 
@@ -73,7 +73,7 @@ if  __name__ == '__main__':
     infilename = root_dir + r"\xmjl_list\云南_项目经理列表_模板.xlsx"
     outfilename = root_dir + r"\get_sheng_ryzz_qyzz\云南省xmjlzz_数据准备_贺家斌_"
     tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
-    columnRows = ["entname", "name", "zsbh", "zclb", "zhuanye", "zjhm", "youxiao_date"]
+    columnRows = ["entname", "name", "zjhm", "zsbh", "zclb", "zhuanye", "youxiao_date"]
     url = "https://www.ynjzjgcx.com/webHtml/per/index.html"
 
     # 读要查询的项目经理和相应企业进来

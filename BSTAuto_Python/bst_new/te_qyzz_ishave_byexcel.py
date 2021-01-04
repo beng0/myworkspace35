@@ -9,95 +9,54 @@ from datetime import datetime
 
 root_dir = os.path.dirname(os.path.abspath('.')) + '\\bst_new\\data'
 
-# 省平台qyzz
-infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzzwithzzcode_贺家斌_20201109_184203.xlsx"
-sheng_datalist = read_excel(infilename1)
-print(sheng_datalist)
-print(sheng_datalist[0][1])
-print(sheng_datalist[0][1][1])
-print(sheng_datalist[0][1][1][2])
-print(sheng_datalist[0][1][1][7])
+# infilname1,infilename2,hebinfilename,num表示需要对比的列
+def get_compare_result(hebin_filename,infilenames,num):
+    ishaves_list = []
+    hebin_str_list = [] # 存放hebin数据关键字连接形成的字符串列表
+    compare_str_list = [] # 存放需要对比的数据关键字连接形成的字符串列表
+    hebin_datalist = read_excel(hebin_filename)[0][1][1:]
+    print(hebin_datalist)
+    # 先得到hebin数据字符串列表
+    for hebin_datas in hebin_datalist:
+        compare_str = ''
+        for n in num:
+            compare_str += str(hebin_datas[n])
+        hebin_str_list.append(compare_str)
+    print(compare_str_list)
+    # 得到每个文件的字符串列表
+    for infilename in infilenames:
+        ishaves = []
+        datalist = read_excel(infilename)[0][1][1:]
+        for datas in datalist:
+            compare_str1 = ''
+            for n in num:
+                compare_str1 += str(datas[n])
+            compare_str_list.append(compare_str1)
+        print(compare_str_list)
+        """遍历hebin数据字符串列表，检查在每个文件字符串列表里是否有"""
+        for compare_str in hebin_str_list:
+            if compare_str in compare_str_list:
+                is_have = "有"
+            else:
+                is_have = "无"
+            ishaves.append(is_have)
+        ishaves_list.append(ishaves)
+        for i in range(len(hebin_datalist)):
+            hebin_datalist[i].append(ishaves[i])
+    # 返回得到每个文件是否有信息之后的合并列表
+    return hebin_datalist
 
-# 标事通qyzz
-infilename2 = root_dir + r"\get_bst_ryzz_qyzz\云南bst企业资质_贺家斌_20201111_114644.xlsx"
-bst_datalist = read_excel(infilename2)
-# print(bst_datalist)
-# print(bst_datalist[0][1][1])
-print(bst_datalist[0][1][1][2])
-print(bst_datalist[0][1][1][7])
-
-# 建设通qyzz
-infilename3 = root_dir + r"\get_jst_ryzz_qyzz\云南_建设通qyzzwithzzcode_贺家斌_20201112_110118.xlsx"
-jst_datalist = read_excel(infilename3)
-# print(jst_datalist)
-# print(jst_datalist[0][1][1])
-print(jst_datalist[0][1][1][2])
-print(jst_datalist[0][1][1][7])
-
-# 合并后的qyzz
-infilename4 = root_dir + r"\hebin\合并qyzz_sheng_jst_bst.xlsx"
-hb_datalist =  read_excel(infilename4)
-print(hb_datalist[0][1][1][2])
-print(hb_datalist[0][1][1][7])
-
-
-# 存放合并对比后的数据
-qyzz_data = []
-for qyzzlis in hb_datalist[0][1][1:]:
-    bstishave = ''
-    jstishave = ''
-    shengishave = ''
-    qyname = qyzzlis[2]
-    zzcode = qyzzlis[7]
-    # print(qyname,zzcode)
-    # print(bst_datalist[0][1:])
-    # 测试合并资质标事通是否有
-    for bst_qyzz in bst_datalist[0][1][1:]:
-        # print(bst_qyzz[3],bst_qyzz[6])
-        if bst_qyzz[2] == qyname and bst_qyzz[7] == str(zzcode):
-            bstishave = '有'
-            break
-        else:
-            bstishave = "无"
-    # 测试合并资质建设通是否有
-    for jst_qyzz in jst_datalist[0][1][1:]:
-        if jst_qyzz[2] == qyname and str(jst_qyzz[7]) == str(zzcode):
-            jstishave = '有'
-            break
-        else:
-            jstishave = '无'
-    # 测试合并资质省平台是否有
-    for sheng_qyzz in sheng_datalist[0][1][1:]:
-        if sheng_qyzz[2] == qyname and str(sheng_qyzz[7]) == str(zzcode):
-            shengishave = '有'
-            break
-        else:
-            shengishave = '无'
-
-    tmp = [qyzzlis[0], qyzzlis[1], qyzzlis[2],
-           qyzzlis[3], qyzzlis[4], qyzzlis[5], qyzzlis[6],qyzzlis[7],qyzzlis[8],bstishave,jstishave,shengishave]
-    qyzz_data.append(tmp)
-
-# 测试标事通资质云南省平台是否有
-# qyzz1_data = []
-# for qyzzlis1 in bst_datalist[0][1][1:]:
-#     ishave = ''
-#     for qyzz in  sheng_datalist[0][1][1:]:
-#         if qyzz[2] == qyzzlis1[3] and str(qyzz[7]) == qyzzlis1[6]:
-#             ishave = '有'
-#             break
-#         else:
-#             ishave = '无'
-#     tmp1 = [qyzzlis1[0],qyzzlis1[1],qyzzlis1[2],qyzzlis1[3],qyzzlis1[4],qyzzlis1[5],qyzzlis1[6],ishave]
-#     qyzz1_data.append(tmp1)
-
-
+hebin_infilename = root_dir + r"\hebin\hebin云南_省平台qyzzwithzzcode_贺家斌_20201215_171230.xlsx"
+infilename1 = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzzwithzzcode_贺家斌_20201215_145400.xlsx"
+infilename2 = root_dir + r"\get_bst_ryzz_qyzz\云南bst企业资质_贺家斌_20201215_145515.xlsx"
+hebin_datalist = get_compare_result(hebin_infilename,infilenames=[infilename1,infilename2],num=[0,3])
+print(hebin_datalist)
 
 tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
-columnRows = ["sheng","shi","entname", "zzdj","zslb", "date","date","zzcode","source","标事通是否有","建设通是否有","省平台是否有"]
-# outfilename_gd_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzzwithzzcode_bstishave_贺家斌_"
-# outfilename2_qyzz = root_dir + r"\get_sheng_ryzz_qyzz\云南_省平台qyzzwithzzcode_shenghave_贺家斌_"
+columnRows = ["entname", "zzmc","youxiao_date", "zzcode", "省平台是否有", "标事通是否有"]
 outfilename_hebin_qyzz = root_dir + r"\hebin\云南_合并后qyzz各平台是否有_贺家斌_"
-wirteDataToExcel(outfilename_hebin_qyzz + tablenamehouzui + ".xlsx", "qyzz_data", columnRows, qyzz_data)
+wirteDataToExcel(outfilename_hebin_qyzz + tablenamehouzui + ".xlsx", "qyzz_data", columnRows, hebin_datalist)
 # wirteDataToExcel(outfilename2_qyzz + tablenamehouzui + '.xlsx',"qyzz_data",columnRows,qyzz1_data)
 print("qyzz_data to  excel  success")
+
+

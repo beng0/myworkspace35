@@ -25,16 +25,20 @@ driver.maximize_window()
 driver.implicitly_wait(30)
 
 s = input("input something")
+# 选择时间
 driver.find_element("xpath","//input[@id='starttime']").click()
 driver.switch_to.frame(driver.find_element("xpath","//iframe[@hidefocus='true']"))
 # driver.find_element("xpath","//div[@class='navImg NavImgl']/a").click()
-driver.find_element("xpath","//td[@onclick='day_Click(2020,11,4);']").click()
+driver.find_element("xpath","//td[@onclick='day_Click(2020,12,1);']").click()
 driver.switch_to.default_content()
 driver.find_element("xpath","//input[@id='endtime']").click()
 driver.switch_to.frame(driver.find_element("xpath","//iframe[@hidefocus='true']"))
-driver.find_element("xpath","//td[@onclick='day_Click(2020,11,4);']").click()
+driver.find_element("xpath","//td[@onclick='day_Click(2020,12,4);']").click()
 driver.switch_to.default_content()
 driver.find_element("xpath","//button[@id='timebut']").click()
+# 选择地区
+driver.find_element_by_xpath("//div[@class='region-content']/font[text()='云南']").click()
+# 选择公告类型
 driver.find_element("xpath","//font[text()='招标公告']").click()
 driver.find_element("xpath","//font[text()='变更']").click()
 
@@ -65,6 +69,11 @@ def get_kw_ggs(kw):
     driver.find_element("id","searchinput").clear()
     driver.find_element("id", "searchinput").send_keys(kw)
     driver.find_element("xpath", "//input[@value='搜索']").click()
+    exec_s = """return document.querySelector('div.hasNoData').getAttribute('style')=='display: none;'"""
+    bool = driver.execute_script(exec_s)
+    print(bool)
+    if(not bool):
+        return
     while True:
         get_page_ggs(kw)
         try:
@@ -83,7 +92,7 @@ def get_kw_ggs(kw):
 if  __name__ == '__main__':
     root_dir = os.path.dirname(os.path.abspath('.')) + '/data'
     infilename = root_dir + r"\jianyu\keywords20201103.xlsx"
-    outfilename = root_dir + r"\jianyu\jianyuggnames_"
+    outfilename = root_dir + r"\jianyu\剑鱼标讯_"
     tablenamehouzui = datetime.now().strftime('%Y%m%d_%H%M%S')
     columnRows = ["keyworld","ggnames","fabu_time"]
     keywords = read_excel(infilename)[0][1][1:]
